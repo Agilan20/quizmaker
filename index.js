@@ -64,7 +64,6 @@ app.get('/home', (req, res) => {  //get function to render home.ejs
           conn.query(
             "select * from quiz where userid=?", [req.session.userid],
             (err, results) => {
-              console.log(results[0].quizid)
               res.render('homepage.ejs', { submitEnable: true, quizcode: results[0].quizid });
             }
           )
@@ -88,7 +87,6 @@ app.get('/setvcq/:qid', (req, res) => {  //get function to render register.ejs
     [req.session.userid, qid],
     (err, results) => {
       if (err) throw err;
-      console.log(results);
       res.render('setvcq.ejs', { quesid: qid, arr: results[0] });
     }
   )
@@ -108,14 +106,14 @@ app.post('/setvcq/:qid', (req, res) => {  //get function to render register.ejs
     req.body.optd,
     req.body.optdpt]
   var userid = req.session.userid;
-  console.log("--------",req.session.userid);
+  // //console.log("--------",req.session.userid);
   //agilan
   conn.query(
     'SELECT * FROM question WHERE userid=? AND quesid=?',
     [userid, qid],
     (err, results) => {
       if (err) throw err;
-      // console.log(results);
+      // //console.log(results);
       if (results.length == 0) {
 
         conn.query(
@@ -128,7 +126,7 @@ app.post('/setvcq/:qid', (req, res) => {  //get function to render register.ejs
         )
       }
       else {
-        console.log("helo");
+        // //console.log("helo");
         conn.query(
           'update question set  qtext=?, opta=?, optascore=?, optb=?, optbscore=?, optc=?, optcscore=?, optd=?, optdscore=? where userid=? and quesid=?',  //set conn query to mysql
           [...arr, req.session.userid, qid],    //insert email and password as data
@@ -181,7 +179,7 @@ app.post('/enterquizcode', (req, res) => {  //get function to render register.ej
         "select * from question where userid=?",
         [results[0].userid],
         (err, result) => {
-          console.log(result[0].userid)
+          // //console.log(result[0].userid)
           res.render('attendquiz.ejs', { result: result, userid: results[0].userid, friendname: req.body.friendname });
         }
       )
@@ -239,7 +237,7 @@ app.post('/auth_register', async (req, res) => {  //post function to authorize r
   conn.query('INSERT INTO user SET ?', register_data, (err, results) => {  //set conn query to mysql with err and the results
     if (err) throw err;
     else {
-      console.log('Data inserted!', results);  //output to console
+      //console.log('Data inserted!', results);  //output to console
       res.redirect('/');  //redirect to login page
     }
   });
@@ -288,8 +286,8 @@ app.post('/attendquiz', (req, res) => {
       if (err) throw err;
       if (results.length == 5) {
         //redirect to home
-        console.log(results);
-        console.log(results[4][req.body.q0ans]);
+        //console.log(results);
+        //console.log(results[4][req.body.q0ans]);
         if (results[4][req.body.q0ans] == "1") {
           crctpts += 1;
         } else if (results[4][req.body.q0ans] == "-1") {
@@ -351,7 +349,7 @@ app.post('/attendquiz', (req, res) => {
         [req.body.friendname],
         async (err, results) => {
           if (err) throw err;
-          console.log(req.body)
+          //console.log(req.body)
           const { requestId } = await courier.send({
             message: {
               to: {
@@ -369,7 +367,7 @@ app.post('/attendquiz', (req, res) => {
           res.render('quizcomplete.ejs', { vbp: vibepercentage, vbcom: vcomm });
         }
       )
-      console.log("----", email)
+      //console.log("----", email)
 
     }
   );
@@ -390,5 +388,5 @@ app.get('*', (req, res) => {
 
 //# middleware port
 app.listen(9000, () => { //listen to port
-  console.log('Port established in 9000'); //output to console
+  //console.log('Port established in 9000'); //output to console
 });
