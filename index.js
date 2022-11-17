@@ -388,5 +388,5 @@ app.get('*', (req, res) => {
 
 //# middleware port
 app.listen(9000, () => { //listen to port
-  //console.log('Port established in 9000'); //output to console
+  console.log('Port established in 9000'); //output to console
 });

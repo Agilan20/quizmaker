@@ -28,55 +28,34 @@ SET time_zone = "+00:00";
 -- Table structure for table `user`
 --
 
+/* user table */
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
-  `password` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
---
--- Dumping data for table `user`
---
+/* question table */
+CREATE TABLE `question` (
+  `quesid` varchar(10) DEFAULT NULL,
+  `userid` int DEFAULT NULL,
+  `qtext` varchar(255) DEFAULT NULL,
+  `opta` varchar(100) DEFAULT NULL,
+  `optascore` int DEFAULT NULL,
+  `optb` varchar(100) DEFAULT NULL,
+  `optbscore` int DEFAULT NULL,
+  `optc` varchar(100) DEFAULT NULL,
+  `optcscore` int DEFAULT NULL,
+  `optd` varchar(100) DEFAULT NULL,
+  `optdscore` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(1, 'user', 'use@user.com', 'user');
+/* quiz table */
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-create table vcdb.question(
-	quesid varchar(10),
-    userid int(11),
-    qtext varchar(255),
-    opta varchar(100),
-    optascore int(11),
-    optb varchar(100),
-    optbscore int(11),
-    optc varchar(100),
-    optcscore int(11),
-    optd varchar(100),
-    optdscore int(11)
-);
+CREATE TABLE `quiz` (
+  `userid` int DEFAULT NULL,
+  `quizid` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`quizid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
